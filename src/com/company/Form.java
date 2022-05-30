@@ -59,7 +59,7 @@ public class Form {
                 customerForm();
             }
             else if (choice == 2){
-                adminMenu();
+                adminForm();
             }
             else if(choice == 0){
                 break;
@@ -71,7 +71,7 @@ public class Form {
         isHomeOpen = false;
         System.out.println("Thanks.");
     }
-    public void adminMenu(){
+    public void adminForm(){
         int choice;
         do{
             System.out.println("1. get Total Income");
@@ -83,7 +83,7 @@ public class Form {
                 System.out.println("Total income: " + Garage.getGarage().getTotalIncome());
             }
             else if(choice == 2){
-                displayVehicles(Controller.getController().getParkedVehicle());
+                displayVehicles(GarageController.getController().getParkedVehicle());
             }
             else if(choice == 3){
                 System.out.println("Entre number of slots:");
@@ -124,14 +124,14 @@ public class Form {
             System.out.println("0. Exit");
             choice = scanner.nextInt();
             if(choice == 1){
-                displaySLots(Controller.getController().getAvaliableSlots());
+                displaySLots(GarageController.getController().getAvaliableSlots());
             }
             else if(choice == 2){
                 System.out.print("Enter width: ");
                 width = scanner.nextDouble();
                 System.out.print("Enter depth: ");
                 depth = scanner.nextDouble();
-                displaySLots(Controller.getController().getSuitableSlots(width, depth));
+                displaySLots(GarageController.getController().getSuitableSlots(width, depth));
             }
             else if(choice == 3){
                 System.out.print("Enter vehicle model name: ");
@@ -142,13 +142,15 @@ public class Form {
                 depth = scanner.nextDouble();
                 System.out.print("choose park-in method\n1-first come\n2-best fit\n");
                 choice = scanner.nextInt();
-                Slot slot = null;
+                Vehicle vehicle = new Vehicle(modelName, width, depth);
+                IParkIn iParkIn;
                 if(choice == 1){
-                    slot = Controller.getController().parkIn(new Vehicle(modelName, width, depth), new FirstCome());
+                    iParkIn = new FirstCome();
                 }
-                else if (choice == 2) {
-                    slot = Controller.getController().parkIn(new Vehicle(modelName, width, depth), new BestFit());
+                else {
+                    iParkIn = new BestFit();
                 }
+                Slot slot = GarageController.getController().parkIn(vehicle, iParkIn);
                 if(slot == null){
                     System.out.println("Can't find suitable slot for you");
                 }
@@ -161,21 +163,15 @@ public class Form {
             else if(choice == 4){
                 System.out.print("Enter vehicle ID: ");
                 int vehicleId = scanner.nextInt();
-                Vehicle vehicle = null;
-                for (Slot slot:Garage.getGarage().getSlots()) {
-                    if(!slot.getStatus() && slot.getVehicle().getID() == vehicleId){
-                        vehicle = slot.getVehicle();
-                        Controller.getController().parkOut(vehicle, new SimplyParkOutMethod());
-                        break;
-                    }
-                }
+                Vehicle vehicle = Garage.getGarage().getVehicle(vehicleId);
+                GarageController.getController().parkOut(vehicle, new SimplyParkOutMethod());
                 if(vehicle == null){
                     System.out.println("Can't find vehicle with this id.");
                 }
                 else{
                     System.out.println("Park out done successfully.");
                     System.out.println(vehicle.getSlot().toString());
-                    if(Controller.getController().pay(vehicle, new SimplePayMethod())){
+                    if(GarageController.getController().pay(vehicle, new SimplePayMethod())){
                         System.out.println("Pay done successfully.");
                         System.out.println(vehicle.toString());
                     }

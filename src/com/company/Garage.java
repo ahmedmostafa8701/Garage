@@ -41,6 +41,12 @@ public class Garage {
         totalIncome += hours * 5 ;
         return true;
     }
+    public Vehicle getVehicle(int id){
+        if(id >= 1 && id <= vehicles.size()){
+            return vehicles.get(id - 1);
+        }
+        return null;
+    }
     public double getTotalIncome(){
         return totalIncome;
     }

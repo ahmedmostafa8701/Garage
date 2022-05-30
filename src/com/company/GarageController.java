@@ -1,20 +1,18 @@
 package com.company;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Controller {
-    private static Controller controller;
-    private Controller(){
+public class GarageController {
+    private static GarageController garageController;
+    private GarageController(){
 
     }
-    public static Controller getController() {
-        if(controller == null){
-            controller = new Controller();
+    public static GarageController getController() {
+        if(garageController == null){
+            garageController = new GarageController();
         }
-        return controller;
+        return garageController;
     }
     public Slot parkIn(Vehicle vehicle, IParkIn iparkIn) {
         return iparkIn.parkIn(vehicle);
