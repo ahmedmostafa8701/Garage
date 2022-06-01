@@ -3,6 +3,11 @@ package com.company;
 import java.util.List;
 import java.util.Scanner;
 
+
+/***
+ * Create form class to get user choices ,display the information he want and act operations he want to do by calling the garage controller
+ * The system has only one Form
+ */
 public class Form {
 
     Scanner scanner = new Scanner(System.in);
@@ -11,6 +16,10 @@ public class Form {
     private Form(){
         firstVisit();
     }
+
+    /***
+     * the garage owner should initiate his garage by determine the initial capacity and the information about each slot
+     */
     private void firstVisit(){
         System.out.println("Enter garage capacity: ");
         int capacity = scanner.nextInt();
@@ -29,6 +38,11 @@ public class Form {
         }
         return form;
     }
+
+    /***
+     * The function will print the information about each slot passed in the function
+     * @param slots the slots that form will display its information
+     */
     public void displaySLots(List<Slot> slots){
         if(slots.size() == 0){
             System.out.println("There's no slot");
@@ -38,6 +52,11 @@ public class Form {
             System.out.println(slot.toString());
         }
     }
+
+    /***
+     * The function will print the information about each vehicled passed in the function
+     * @param vehicles the vehicles that form will display its information
+     */
     public void displayVehicles(List<Vehicle> vehicles){
         if(vehicles.size() == 0){
             System.out.println("There's no vehicle");
@@ -47,6 +66,10 @@ public class Form {
             System.out.print(vehicle.toString());
         }
     }
+
+    /***
+     * The form will be displayed in the home and enable user to treat with the system as a user or an admin
+     */
     public void homeForm(){
         isHomeOpen = true;
         int choice;
@@ -71,6 +94,10 @@ public class Form {
         isHomeOpen = false;
         System.out.println("Thanks.");
     }
+
+    /***
+     * admin can display the total income and total vehicle parked in garage and can add slots
+     */
     public void adminForm(){
         int choice;
         do{
@@ -112,6 +139,10 @@ public class Form {
             }
         }while (true);
     }
+
+    /***
+     * customer can park in, park out, display suitable slots and display available slots
+     */
     public void customerForm(){
         int choice;
         String modelName;
@@ -155,7 +186,7 @@ public class Form {
                     System.out.println("Can't find suitable slot for you");
                 }
                 else{
-                    System.out.println("Done successfully slot detail: ");
+                    System.out.println("Done successfully\nslot detail: ");
                     System.out.println(slot.getVehicle().toString());
                     System.out.println(slot.toString());
                 }

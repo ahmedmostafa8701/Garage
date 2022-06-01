@@ -1,7 +1,9 @@
 package com.company;
 
 import java.time.LocalDateTime;
-
+/***
+ * class repersent one of park in types which detect the smallest suitable slot for the vehicle
+ */
 public class BestFit implements IParkIn{
     @Override
     public Slot parkIn(Vehicle vehicle) {

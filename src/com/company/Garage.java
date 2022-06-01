@@ -30,16 +30,16 @@ public class Garage {
         }
         return !isFull();
     }
+
+    /***
+     * add vehicle to the garage
+     * @param vehicle
+     * @param slot
+     */
     public void addVehicle(Vehicle vehicle, Slot slot){
         slot.setVehicle(vehicle);
         vehicle.setSlot(slot);
         vehicles.add(vehicle);
-    }
-    public boolean pay(Vehicle vehicle){
-        double minutes = Duration.between(vehicle.getTime_in(), vehicle.getTime_out()).toMinutes();
-        int hours = minutes % 60 == 0 ? (int)minutes / 60 : (int)minutes / 60 + 1;
-        totalIncome += hours * 5 ;
-        return true;
     }
     public Vehicle getVehicle(int id){
         if(id >= 1 && id <= vehicles.size()){
